@@ -1,3 +1,5 @@
+/*レンタルサーバーとAWS light-sailで稼働しているwordpress*/
+
 /* wordpres1 データベースを選択*/
 /* show tables;でテーブルを表示*/
 
