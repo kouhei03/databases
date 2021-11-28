@@ -157,18 +157,8 @@ WHERE NOT Country='Germany';
 SELECT * FROM Customer
 WHERE Country='Germany' AND (City='Berlin' OR City='München');
 
-/**/
+/*次のSQLステートメントは、国が「ドイツ」でも「米国」でもない
+「顧客」からすべてのフィールドを選択します。*/
 
-
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-
-/**/
-
-
+SELECT * FROM Customer
+WHERE NOT Country='Germany' AND NOT Country='USA';
