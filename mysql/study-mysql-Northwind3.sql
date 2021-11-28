@@ -131,27 +131,104 @@ WHERE ContactName LIKE 'a%o';
 
 SELECT * FROM Customers
 WHERE CustomerName NOT LIKE 'a%';
+
+/*次のSQLステートメントは、「ber」で始まる都市を持つ
+すべての顧客を選択します。*/
+SELECT * FROM Customer
+WHERE City LIKE 'Ber%';
+
+/*次のSQLステートメントは、パターン「es」を含む都市を持つすべての顧客を選択します。*/
+SELECT * FROM Customer
+WHERE City LIKE '%es%';
+
+/*次のSQLステートメントは、Cityが任意の文字で始まり、
+その後に「ondon」が続くすべての顧客を選択します。*/
+
+SELECT * FROM Customer
+WHERE City LIKE '_ondon';
+
+/*次のSQLステートメントは、Cityが「L」で始まり、
+任意の文字、「n」、任意の文字、「on」の順であるすべての顧客を選択します。*/
+SELECT * FROM Customer
+WHERE City LIKE 'L_n_on';
+
+/*[charlist]ワイルドカードの使用
+次のSQLステートメントは、「b」、「s」、または「p」で始まる
+都市を持つすべての顧客を選択します。*/
+
+
+/*SQLIN演算子
+INオペレータは、あなたが複数の値を指定することができます WHERE句。
+
+INオペレータは、複数の省略形です OR条件。
+
+IN構文
+SELECT column_name(s)
+FROM table_name
+WHERE column_name IN (value1, value2, ...);
+また：
+
+SELECT column_name(s)
+FROM table_name
+WHERE column_name IN (SELECT STATEMENT);
+*/
+
+
+/*IN演算子の例
+次のSQLステートメントは、「ドイツ」、「フランス」、
+または「英国」にあるすべての顧客を選択します。*/
+
+SELECT * FROM Customer
+WHERE Country IN ('Germany', 'France', 'UK');
+
+
+/*次のSQLステートメントは、「ドイツ」、「フランス」、
+または「英国」にないすべての顧客を選択します。*/
+SELECT * FROM Customer
+WHERE Country NOT IN ('Germany', 'France', 'UK');
+
+/*次のSQLステートメントは、サプライヤと同じ国のすべての顧客を選択します。
+サプライやテーブルを参照*/
+SELECT * FROM Customer
+WHERE Country IN (SELECT Country FROM Supplier);
+
+/*SQLBETWEEN演算子
+BETWEEN与えられた範囲内のオペレータ選択値。値には、数値、テキスト、または日付を指定できます。
+
+BETWEENオペレータは、包括的である：開始と終了の値が含まれています。 
+
+BETWEEN構文
+SELECT column_name(s)
+FROM table_name
+WHERE column_name BETWEEN value1 AND value2;*/
+
+/*次のSQLステートメントは、価格が10〜20のすべての製品を選択します。*/
+SELECT * FROM Product
+WHERE unitPrice BETWEEN 10 AND 20;
+
+
+/*前の例の範囲外の製品を表示するには、次を使用します NOT BETWEEN。*/
+SELECT * FROM Product
+WHERE unitPrice NOT BETWEEN 10 AND 20;
+
+/*次のSQLステートメントは、価格が10〜20のすべての製品を選択します。
+CategoryIDが1、2、または3の商品は表示されません。*/
+SELECT * FROM Product
+WHERE unitPrice BETWEEN 10 AND 20
+AND CategoryID NOT IN (1,2,3);
+
+/*次のSQLステートメントは、ProductNameがProduct RECZEと
+Product WEUJZの間にあるすべての製品を選択します。*/
+SELECT * FROM Product
+WHERE ProductName BETWEEN 'Product RECZE' AND 'Product WEUJZ'
+ORDER BY ProductName;
+
 /**/
-
-
 /**/
-
-
 /**/
-
-
 /**/
-
-
 /**/
-
-
 /**/
-
-
-/**/
-
-
 /**/
 
 
