@@ -106,22 +106,104 @@ VALUES ('Cardinal','Tom B. Erichsen','Skagen 21','Stavanger','4006','Norway');
 */
 INSERT INTO Customer (companyName, City, Country)
 VALUES ('Cardinal2', 'Stavanger', 'Norway');
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
+
+
+/*NULL値とは何ですか？
+NULL値のあるフィールドは、値のないフィールドです。
+
+テーブルのフィールドがオプションの場合、このフィールドに値を追加せずに、
+新しいレコードを挿入したり、レコードを更新したりすることができます。
+次に、フィールドはNULL値で保存されます。
+
+注： NULL値は、ゼロ値またはスペースを含むフィールドとは異なります。
+NULL値のフィールドは、レコードの作成中に空白のままにされたフィールドです。
+
+NULL値をテストする方法は？
+=、<、<>などの比較演算子を使用してNULL値をテストすることはできません。
+
+代わりにIS NULLand IS NOT NULL演算子を使用する必要があります。
+
+＜ISNULL構文＞
+SELECT column_names
+FROM table_name
+WHERE column_name IS NULL;
+
+＜IS NOTNULL構文＞
+SELECT column_names
+FROM table_name
+WHERE column_name IS NOT NULL;
+*/
+
+/*ISNULL演算子
+IS NULLオペレータは、空の値（NULL値）をテストするために使用されます。
+次のSQLは、「アドレス」フィールドにNULL値を持つすべての顧客をリストします。*/
+
+SELECT companyName, ContactName, Address
+FROM Customer
+WHERE Address IS NULL;
+
+
+
+/*IS NOTNULL演算子
+IS NOT NULLオペレータは、非空の値（NOT NULL値）をテストするために使用されます。
+次のSQLは、「アドレス」フィールドに値を持つすべての顧客を一覧表示します。*/
+
+SELECT companyName, ContactName, Address
+FROM Customer
+WHERE Address IS NULL;
+
+SELECT companyName, ContactName, Address
+FROM Customer
+WHERE Address IS NOT NULL;
+
+
+/*SQLUPDATEステートメント
+このUPDATEステートメントは、テーブル内の既存のレコードを変更するために使用されます。
+
+UPDATE構文
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+*/
+
+/*UPDATEテーブル
+次のSQLステートメントは、最初の顧客（CustomerID = 1）を
+新しい連絡担当者と 新しい都市で更新します。*/
+
+UPDATE Customer
+SET companyName='Alfred Schmidt', City='Frankfurt'
+WHERE custId=1;
+
+
+/*複数のレコードを更新する
+それはWHERE更新されるレコードの数を決定する句。
+次のSQLステートメントは、国が「メキシコ」であるすべての
+レコードのContactNameを「Juan」に更新します。*/
+
+UPDATE Customer
+SET ContactName='Juan'
+WHERE Country='Mexico';
+
+
+/*警告を更新してください！
+レコードを更新するときは注意してください。
+この WHERE句を省略すると、すべてのレコードが更新されます。
+*/
+
+UPDATE Customer
+SET ContactName='Juan';
+
+/*SQLDELETEの例
+次のSQLステートメントは、「Customers」テーブルから
+顧客「AlfredsFutterkiste」を削除します。*/
+DELETE FROM Customer WHERE companyName='Alfred Schmidt';
+
+/*すべてのレコードを削除する
+テーブルを削除せずに、テーブル内のすべての行を削除することができます。
+これは、テーブルの構造、属性、およびインデックスがそのまま残ることを意味します。*/
+
+DELETE FROM Customer;
+
+
+
+
