@@ -205,5 +205,19 @@ DELETE FROM Customer WHERE companyName='Alfred Schmidt';
 DELETE FROM Customer;
 
 
+/*
+次のSQLステートメントは、「Customers」テーブルから最初の3つのレコードを選択します
+次のSQLステートメントは、MySQLの同等の例を示しています。*/
+
+SELECT * FROM Customer
+LIMIT 3;
+
+/*次のSQLステートメントは、「Customers」テーブルから最初の3つのレコードを選択します。
+ここで、国は「Germany」*/
+
+SELECT * FROM Customer
+WHERE Country='Germany'
+LIMIT 3;
+
 
 
