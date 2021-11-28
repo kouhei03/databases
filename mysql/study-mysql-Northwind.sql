@@ -115,33 +115,60 @@ NOTオペレータディスプレイ条件（s）が真でない場合、レコ�
     SELECT column1, column2, ...
     FROM table_name
     WHERE condition1 OR condition2 OR condition3 ...;
-    
+
     【NOT構文】
     SELECT column1, column2, ...
     FROM table_name
     WHERE NOT condition;
 */
 
+/*ANDの例
+次のSQLステートメントは、国が「ドイツ」で都市が「ベルリン」である「顧客」から
+すべてのフィールドを選択します。*/
 SELECT * FROM Customer
 WHERE Country='Germany' AND City='Berlin';
-/*AND構文
-SELECT column1, column2, ...
-FROM table_name
-WHERE condition1 AND condition2 AND condition3 ...;
-OR構文
-SELECT column1, column2, ...
-FROM table_name
-WHERE condition1 OR condition2 OR condition3 ...;
-NOT構文
-SELECT column1, column2, ...
-FROM table_name
-WHERE NOT condition;*/
 
+
+/*または例
+次のSQLステートメントは、都市が「ベルリン」または「ミュンヘン」である「顧客」から
+すべてのフィールドを選択します。*/
+SELECT * FROM Customers
+WHERE City='Berlin' OR City='München';
+
+/*次のSQLステートメントは、国が「ドイツ」または
+「スペイン」である「顧客」からすべてのフィールドを選択します。*/
+
+SELECT * FROM Customers
+WHERE Country='Germany' OR Country='Spain';
+
+/*次のSQLステートメントは、国が「ドイツ」ではない「顧客」から
+すべてのフィールドを選択します。*/
+SELECT * FROM Customer
+WHERE NOT Country='Germany';
+
+
+/*AND、OR、NOTの組み合わせ
+あなたも組み合わせることができAND、 ORおよびNOT演算子を。
+
+次のSQLステートメントは、「Customers」からすべてのフィールドを選択します。
+ここで、countryは「Germany」であり、cityは「Berlin」または
+「München」である必要があります（括弧を使用して複雑な式を形成します）。*/
+
+SELECT * FROM Customer
+WHERE Country='Germany' AND (City='Berlin' OR City='München');
+
+/**/
+
+
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
 /**/
 
 /**/
 
-/**/
-
-/**/
 
