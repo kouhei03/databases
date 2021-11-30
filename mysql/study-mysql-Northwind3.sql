@@ -223,9 +223,18 @@ SELECT * FROM Product
 WHERE ProductName BETWEEN 'Product RECZE' AND 'Product WEUJZ'
 ORDER BY ProductName;
 
+/*次のSQLステートメントは、CarnarvonTigersとMozzarelladiGiovanniの
+間にないProductNameを持つすべての製品を選択します。*/
+SELECT * FROM Product
+WHERE ProductName NOT BETWEEN 'Product RECZE' AND 'Product WEUJZ'
+ORDER BY ProductName;
+
 /**/
+SELECT * FROM Orders
+WHERE orderDate BETWEEN #07/01/1996# AND #07/31/1996#;
 /**/
-/**/
+
+
 /**/
 /**/
 /**/
