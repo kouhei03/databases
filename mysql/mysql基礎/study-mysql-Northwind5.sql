@@ -172,11 +172,51 @@ INSERT INTO Customer (companyName, ContactName, Address, City, PostalCode, Count
 SELECT companyName, ContactName, Address, City, PostalCode, Country FROM Supplier;
 
 
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
+/*次のSQLステートメントは、ドイツのサプライヤーのみを「顧客」にコピーします。*/
+INSERT INTO Customer (companyName, city, country)
+SELECT 	companyName, City, country FROM Supplier
+WHERE country='Germany';
+
+/*
+SQLCASEステートメント
+CASE文は条件を通過し、第一の条件は、（IF-THEN-else文のように）満たされている値を返します。したがって、条件が真になると、読み取りを停止して結果を返します。真の条件がない場合は、ELSE句の値を返します。
+
+ELSEパーツがなく、条件が真でない場合は、NULLを返します。
+
+CASE構文
+CASE
+    WHEN condition1 THEN result1
+    WHEN condition2 THEN result2
+    WHEN conditionN THEN resultN
+    ELSE result
+END;
+*/
+
+/*SQLCASEの例
+次のSQLは条件を通過し、最初の条件が満たされたときに値を返します。
+*/
+SELECT OrderID, Quantity,
+CASE WHEN Quantity > 30 THEN 'The quantity is greater than 30'
+WHEN Quantity = 30 THEN 'The quantity is 30'
+ELSE 'The quantity is under 30'
+END AS QuantityText
+FROM OrderDetail;
+
+
+/*次のSQLは、市ごとに顧客を注文します。
+ただし、CityがNULLの場合は、国別に並べ替えます。*/
+SELECT companyName, city, country FROM Customer
+ORDER BY (CASE
+WHEN city IS NULL THEN country
+ELSE city
+END);
+
+/*単一行コメント
+1行コメントは--。で始まります。
+-と行末の間のテキストは無視されます（実行されません）。
+次の例では、説明として1行のコメントを使用しています。
+*/
+-- Select all:
+SELECT * FROM Customer;
+SELECT * FROM Customer -- WHERE City='Berlin';
+
