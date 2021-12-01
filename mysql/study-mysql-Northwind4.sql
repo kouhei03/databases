@@ -118,24 +118,10 @@ ON SalesOrder.EmployeeID = Employee.employeeId
 ORDER BY SalesOrder.orderId;
 
 
-/*
-SQL FULL OUTERJOINキーワード
-FULL OUTER JOINキーワードを返す左（TABLE1）または右（表2）テーブルのレコードで一致があるすべてのレコードを。
-
-ヒント： FULL OUTER JOINと FULL JOINは同じです。
-
-FULL OUTERJOIN構文
-SELECT column_name(s)
-FROM table1
-FULL OUTER JOIN table2
-ON table1.column_name = table2.column_name
-WHERE condition;
-*/
 
 
-/*SQL FULL OUTERJOINの例
-次のSQLステートメントは、すべての顧客とすべての注文を選択します。
-*/
+
+
 
 /**/
 /**/
