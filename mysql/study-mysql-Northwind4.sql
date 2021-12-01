@@ -117,16 +117,52 @@ RIGHT JOIN Employee
 ON SalesOrder.EmployeeID = Employee.employeeId	
 ORDER BY SalesOrder.orderId;
 
+/*SQL自己結合
+自己結合は通常の結合ですが、テーブルはそれ自体と結合されます。
+
+自己結合構文
+SELECT column_name(s)
+FROM table1 T1, table1 T2
+WHERE condition;
+T1とT2は、同じテーブルの異なるテーブルエイリアスです。
+*/
+
+/*SQL自己結合の例
+次のSQLステートメントは、同じ都市の顧客と一致します。
+*/
+SELECT A.companyName AS CustomerName1, B.companyName AS CustomerName2, A.City
+FROM Customer A, Customer B
+WHERE A.custId<> B.custId
+AND A.City = B.City 
+ORDER BY A.City;
+
+/*
+SQLUNION演算子
+UNIONオペレータは、二つ以上の結果セットを組み合わせるために使用される SELECT ステートメント。
+
+SELECT内のすべてのステートメント UNIONは、同じ数の列を持っている必要があります
+列も同様のデータ型である必要があります
+すべてのSELECTステートメントの列も同じ順序である必要があります
+UNION構文
+SELECT column_name(s) FROM table1
+UNION
+SELECT column_name(s) FROM table2;
+UNIONALL構文
+UNIONオペレータは、デフォルトでのみ異なる値を選択します。重複する値を許可するには、次を使用しますUNION ALL。
+
+SELECT column_name(s) FROM table1
+UNION ALL
+SELECT column_name(s) FROM table2;
+*/
+
+/*次のSQLステートメントは、「Customers」テーブルと「Suppliers」テーブルの
+両方から都市（個別の値のみ）を返します。*/
+SELECT City FROM Customer
+UNION
+SELECT City FROM Supplier
+ORDER BY City;
 
 
-
-
-
-
-/**/
-/**/
-/**/
-/**/
 /**/
 /**/
 /**/
