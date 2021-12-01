@@ -105,14 +105,73 @@ WHERE LastName = 'Davolio' OR LastName = 'Fuller'
 GROUP BY LastName
 HAVING COUNT(Orders.OrderID) > 25;
 
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
+/*SQLEXISTSの例
+次のSQLステートメントはTRUEを返し、製品価格が20未満のサプライヤーをリストします。*/
+SELECT companyName
+FROM Supplier
+WHERE EXISTS (SELECT productName FROM Product 
+WHERE Product.supplierId = Supplier.supplierId AND unitPrice < 20);
+
+/*次のSQLステートメントはTRUEを返し、製品価格が22のサプライヤーをリストします。*/
+SELECT contactName
+FROM Supplier
+WHERE EXISTS (SELECT ProductName FROM Product 
+WHERE Product.supplierId  = Supplier.supplierId  AND unitPrice = 22);
+
+/*
+次のSQLステートメントは、OrderDetailsテーブルでQuantityが10に等しいレコードを
+検出した場合にProductNameを一覧表示します
+（Quantity列の値が10であるため、これはTRUEを返します）。*/
+SELECT productName
+FROM Product
+WHERE productId = ANY 
+    (SELECT productId FROM OrderDetail WHERE quantity = 10);
+
+/*
+次のSQLステートメントは、OrderDetailsテーブルで99より大きいQuantityのレコードが
+見つかった場合にProductNameを一覧表示します
+（Quantity列の値が99より大きいため、これはTRUEを返します）。*/
+SELECT productName
+FROM Product
+WHERE productId = ANY 
+ (SELECT productId FROM OrderDetail WHERE quantity  > 99);
+
+/*SQLALLの例
+次のSQLステートメントは、すべての製品名をリストしています*/
+SELECT ALL productName
+FROM Product
+WHERE TRUE;
+
+/*SQL INSERT INTOSELECTステートメント
+このINSERT INTO SELECTステートメントは、あるテーブルからデータをコピーし、それを別のテーブルに挿入します。
+
+このINSERT INTO SELECTステートメントでは、ソーステーブルとターゲットテーブルのデータ型が一致している必要があります。
+
+注：ターゲットテーブルの既存のレコードは影響を受けません。
+
+INSERT INTOSELECT構文
+あるテーブルから別のテーブルにすべての列をコピーします。
+
+INSERT INTO table2
+SELECT * FROM table1
+WHERE condition;
+あるテーブルから別のテーブルに一部の列のみをコピーします。
+
+INSERT INTO table2 (column1, column2, column3, ...)
+SELECT column1, column2, column3, ...
+FROM table1
+WHERE condition;*/
+
+/*次のSQLステートメントは、「Suppliers」を「Customers」に
+コピーします（データが入力されていない列にはNULLが含まれます）。*/
+INSERT INTO Customer (companyName, City, Country)
+SELECT companyName, City, Country FROM Supplier;
+
+/*次のSQLステートメントは、「Suppliers」を「Customers」にコピーします（すべての列に入力します）*/
+INSERT INTO Customer (companyName, ContactName, Address, City, PostalCode, Country)
+SELECT companyName, ContactName, Address, City, PostalCode, Country FROM Supplier;
+
+
 /**/
 /**/
 /**/
