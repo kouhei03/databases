@@ -253,10 +253,15 @@ CREATE TABLE Orders77 (
     REFERENCES Customer(custID)
 );
 
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
+/*ALTERTABLEのSQL外部キー
+FOREIGN KEY「Orders」テーブルがすでに作成されているときに
+「PersonID」列に制約を作成するには、次のSQLを使用します。*/
+ALTER TABLE Orders77
+ADD FOREIGN KEY (custID) REFERENCES Customer(custID);
+/*外部キーの確認方法*/
+SHOW CREATE TABLE Orders77;
+
+/*外部キー制約を削除する
+FOREIGN KEY制約を削除するには、次のSQLを使用します。*/
+ALTER TABLE Orders
+DROP FOREIGN KEY FK_PersonOrder;
