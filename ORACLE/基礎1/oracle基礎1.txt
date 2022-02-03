@@ -1,0 +1,112 @@
+【DB情報取得SQL例文】
+データベース全般に関する情報を取得するためのSQL例文を紹介します。
+
+--☆データベースのバージョンを表示する。
+SELECT * FROM V$VERSION;
+
+--☆制御ファイルの一覧を表示する。
+SELECT * FROM V$CONTROLFILE;
+
+--☆データベースファイルの一覧を表示する。
+SELECT * FROM V$DBFILE;
+
+--☆ログファイルの一覧を表示する。
+SELECT * FROM V$LOGFILE;
+
+--☆SGAのサイズを表示する。
+SELECT * FROM V$SGA;
+
+--☆表領域の一覧を表示する。
+SELECT * FROM V$TABLESPACE;
+
+--☆初期化パラメータの一覧を表示する。
+SELECT NAME, VALUE V$PARAMETER;
+--（SHOW PARAMETERS　でも可）
+
+--☆現在ログイン中のユーザ一覧を表示する。
+SELECT USERNAME FROM V$SESSION WHERE TYPE = 'USER';
+
+【オブジェクト情報取得SQL例文】
+※データディクショナリ名の接頭辞は（DBA_）で表示してあります。
+ログインユーザの権限や用途に合わせて接頭辞を（ALL_）、または（USER_）に読み替えてください
+
+--☆ユーザ名の一覧を表示する。
+SELECT USERNAME FROM DBA_USERS;
+
+--☆テーブル名の一覧を表示する。
+SELECT TABLE_NAME FROM DBA_TABLES;
+--（SELECT * FROM TAB;　でも可）
+
+--☆インデックス名の一覧を表示する。
+SELECT INDEX_NAME FROM DBA_INDEXES;
+
+--☆ビュー名の一覧を表示する。
+SELECT VIEW_NAME FROM DBA_VIEWS;
+
+--☆シノニム名の一覧を表示する。
+SELECT SYNONYM_NAME FROM DBA_SYNONYMS;
+
+--☆シーケンス名の一覧を表示する。
+SELECT SEQUENCE_NAME FROM DBA_SEQUENCES;
+
+--☆トリガー名の一覧を表示する。
+SELECT TRIGGER_NAME FROM DBA_TRIGGERS;
+
+--☆プロシージャ名の一覧を表示する。
+SELECT PROCEDURE_NAME FROM DBA_PROCEDURES;
+
+--☆ロール名の一覧を表示する。
+SELECT ROLE FROM DBA_ROLES;
+
+--☆プロファイルの一覧を表示する。
+SELECT * FROM DBA_PROFILES;
+
+--☆タイプ名の一覧を表示する。
+SELECT TYPE_NAME FROM DBA_TYPES;
+
+【テーブル関連情報取得・設定SQL例文】
+--☆カラムにデフォルト値を設定する。
+ALTER TABLE テーブル名 MODIFY カラム名 DEFAULT デフォルト値;
+
+
+--☆カラムに設定されているデフォルト値を調べる。
+SELECT DATA_DEFAULT FROM DBA_TAB_COLUMNS WHERE TABLENAME = 'テーブル名';
+
+--☆テーブルに設定されている主キーを表示する。
+SELECT * FROM DBA_CONSTRAINTS
+  WHERE TABLE_NAME = 'テーブル名' AND CONSTRAINT_TYPE = 'P';
+
+--☆テーブルに設定されているINDEXを表示する。
+SELECT * FROM DBA_INDEXES WHERE TABLE_NAME = 'テーブル名';
+
+--☆テーブルに設定されている制約を表示する。
+SELECT * FROM DBA_CONSTRAINTS WHERE TABLE_NAME = 'テーブル名';
+
+--☆カラムにNOT NULL制約を設定する。
+ALTET TABLE テーブル名 MODIFY カラム名 NOT NULL;
+
+【ファンクション・プロシージャ・パッケージ関連】
+--☆利用不可となっているファンクションを表示する。
+SELECT OBJECT_NAME FROM DBA_OBJECTS
+  WHERE OBJECT_TYPE='FUNCTION' AND STATUS='INVALID';
+
+--☆利用不可となっているプロシージャを表示する。
+SELECT OBJECT_NAME FROM DBA_OBJECTS
+  WHERE OBJECT_TYPE='PROCEDURE' AND STATUS='INVALID';
+
+--☆利用不可となっているパッケージを表示する。
+SELECT OBJECT_NAME FROM DBA_OBJECTS
+  WHERE OBJECT_TYPE='PACKAGE' AND STATUS='INVALID';
+
+--☆ファンクションを再コンパイルする。
+ALTER FUNCTION ファンクション名 COMPILE;
+
+--☆プロシージャを再コンパイルする。
+ALTER PROCEDURE プロシージャ名 COMPILE;
+
+--☆パッケージを再コンパイルする。
+ALTER PACKAGE パッケージ名 COMPILE;
+
+--☆ソースを表示する。
+SELECT TEXT FROM USER_SOURCE WHERE NAME = 'ファンクション名';
+--※NAME='ファンクション名'　の部分は大文字で指定してください。
