@@ -1,0 +1,30 @@
+セクション3
+このセクションで使用したSQLクエリは次の通りです。
+
+show databases;
+
+create database art_data;
+
+show databases;
+
+
+use artdata;
+
+show tables;
+
+
+CREATE TABLE artist(id int not null auto_increment primary key, name varchar(255) not null, category varchar(255))
+
+
+show columns from artist;
+
+
+show tables;
+
+drop table artist;
+
+
+drop database art_data;
+
+show databases;
+
