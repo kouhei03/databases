@@ -1,3 +1,13 @@
 
-#ユーザー一覧表示
-select username from dba_users;
+
+テーブル一覧
+DBA権限の場合
+
+select owner,table_name from dba_tables;
+ログインしているユーザーが参照できるすべてのテーブルを表示
+
+select owner,table_name from all_tables;
+
+ログインしているユーザーが OWNER のテーブルを表示
+select table_name from USER_TABLES;
+
