@@ -11,3 +11,32 @@ select owner,table_name from all_tables;
 ログインしているユーザーが OWNER のテーブルを表示
 select table_name from USER_TABLES;
 
+#Oracle 表領域の一覧とデータファイルの一覧を取得するSQL。
+
+#・表領域の一覧を取得する
+
+SELECT *
+FROM   DBA_TABLESPACES
+#・データファイルの一覧を取得する
+
+SELECT *
+FROM   DBA_DATA_FILES
+#【例】
+#・指定した表領域がもつデータファイルの一覧を取得する
+
+SELECT *
+FROM   DBA_DATA_FILES
+WHERE  TABLESPACE_NAME = '表領域名';
+
+
+#Oracle 11g からはデフォルトでアカウントパスワードの有効期限が180日に設定されるようになった。
+#これを知らずに本稼働すると忘れたころに「繋がらない！」という事態に。
+#定期的にパスワードを変更する運用が望ましいのは理解しつつ、そうもいかない場合には10gまでのようにパスワードを無期限にするしかない。。。
+
+#パスワード有効期限の設定の確認と変更する方法
+#有効期限を確認するSQLを実行します。
+
+select *  
+from dba_profiles 
+where resource_name = 'PASSWORD_LIFE_TIME';
+#通常、「DEFAULT」プロファイルの「LIMIT」が適用されますので、この場合はパスワードの有効期限が180日ということになります
