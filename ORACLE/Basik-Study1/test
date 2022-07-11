@@ -1,7 +1,7 @@
 
 
-テーブル一覧
-DBA権限の場合
+/*テーブル一覧
+DBA権限の場合*/
 
 select owner,table_name from dba_tables;
 ログインしているユーザーが参照できるすべてのテーブルを表示
