@@ -69,4 +69,27 @@ alter user system identified by password123;
 
 alter user system account unlock;
 
+/*使用状況確認SQL*/
+SELECT 
+t.TABLESPACE_NAME
+,ROUND(a.SPC /1024/1024,1) 全サイズM
+,ROUND(f.SPC /1024/1024,1) 空サイズM
+,decode(a.SPC-f.SPC,null,100,ROUND((a.SPC-f.SPC)/a.SPC * 100,2)) 使用率
+FROM
+DBA_TABLESPACES t
+left outer join 
+(
+  SELECT TABLESPACE_NAME,SUM(BYTES) SPC FROM DBA_DATA_FILES
+  GROUP BY TABLESPACE_NAME
+) a
+on t.TABLESPACE_NAME = a.TABLESPACE_NAME
+left outer join
+(
+  SELECT TABLESPACE_NAME,SUM(BYTES) SPC FROM DBA_FREE_SPACE
+  GROUP BY TABLESPACE_NAME ORDER BY TABLESPACE_NAME
+) f
+on t.TABLESPACE_NAME = f.TABLESPACE_NAME
+order by a.SPC desc nulls last
+;
+
 
