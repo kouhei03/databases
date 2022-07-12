@@ -1,0 +1,109 @@
+
+
+/*テーブル一覧
+DBA権限の場合*/
+select owner,table_name from dba_tables;
+/*ログインしているユーザーが参照できるすべてのテーブルを表示*/
+
+select owner,table_name from all_tables;
+
+/*ログインしているユーザーが OWNER のテーブルを表示*/
+select table_name from USER_TABLES;
+
+/*Oracle 表領域の一覧とデータファイルの一覧を取得するSQL。*/
+/*表領域の一覧を取得する*/
+
+SELECT *
+FROM   DBA_TABLESPACES
+/*データファイルの一覧を取得する*/
+
+SELECT *
+FROM   DBA_DATA_FILES
+
+/*指定した表領域がもつデータファイルの一覧を取得する*/
+
+SELECT *
+FROM   DBA_DATA_FILES
+WHERE  TABLESPACE_NAME = '表領域名';
+
+
+/*Oracle 11g からはデフォルトでアカウントパスワードの有効期限が180日に設定されるようになった。
+これを知らずに本稼働すると忘れたころに「繋がらない！」という事態に。
+定期的にパスワードを変更する運用が望ましいのは理解しつつ、そうもいかない場合には10gまでのようにパスワードを無期限にするしかない*/
+
+/*パスワード有効期限の設定の確認と変更する方法
+#有効期限を確認するSQLを実行します*/
+
+select *  
+from dba_profiles 
+where resource_name = 'PASSWORD_LIFE_TIME';
+
+/*通常、「DEFAULT」プロファイルの「LIMIT」が適用されますので、
+この場合はパスワードの有効期限が180日ということになります*/
+
+/*「DEFAULT」プロファイルの有効期限を無期限に変更します。
+alter profile default limit password_life_time unlimited;*/
+
+/*有効期限を確認するSQLを実行します。*/
+
+select *  
+from dba_profiles 
+where resource_name = 'PASSWORD_LIFE_TIME';
+
+/*有効期限を日数で指定する場合は以下のようにします。
+alter profile default limit password_life_time 360;*/
+
+/*有効期限を確認するSQLを実行します。*/
+select *  
+from dba_profiles 
+where resource_name = 'PASSWORD_LIFE_TIME';
+
+/*既にパスワードの有効期限が切れてアカウントロックされたユーザーがある場合は 
+##ロックされたユーザーのパスワードを変更します。
+#※サンプルとして「system」アカウントのパスワードを「password123」に変更するコマンドです。*/
+
+alter user system identified by password123;
+
+/*ロックアウトされたアカウントのロックを解除します。
+#※サンプルとして「system」アカウントのロックを解除します。*/
+
+alter user system account unlock;
+
+/*使用状況確認SQL*/
+SELECT 
+t.TABLESPACE_NAME
+,ROUND(a.SPC /1024/1024,1) 全サイズM
+,ROUND(f.SPC /1024/1024,1) 空サイズM
+,decode(a.SPC-f.SPC,null,100,ROUND((a.SPC-f.SPC)/a.SPC * 100,2)) 使用率
+FROM
+DBA_TABLESPACES t
+left outer join 
+(
+  SELECT TABLESPACE_NAME,SUM(BYTES) SPC FROM DBA_DATA_FILES
+  GROUP BY TABLESPACE_NAME
+) a
+on t.TABLESPACE_NAME = a.TABLESPACE_NAME
+left outer join
+(
+  SELECT TABLESPACE_NAME,SUM(BYTES) SPC FROM DBA_FREE_SPACE
+  GROUP BY TABLESPACE_NAME ORDER BY TABLESPACE_NAME
+) f
+on t.TABLESPACE_NAME = f.TABLESPACE_NAME
+order by a.SPC desc nulls last
+;
+
+
+Footer
+© 2022 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
