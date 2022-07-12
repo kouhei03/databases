@@ -91,19 +91,3 @@ left outer join
 on t.TABLESPACE_NAME = f.TABLESPACE_NAME
 order by a.SPC desc nulls last
 ;
-
-
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
