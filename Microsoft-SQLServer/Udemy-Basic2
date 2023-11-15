@@ -1,0 +1,25 @@
+
+【テーブルの作成】
+create table SampleTable(
+id int identity(1,1) not null,
+Name varchar(20) not null,
+quantity int not null
+primary key(
+Id)
+)
+
+【単一データの追加】
+insert into SampleTable(Name,quantity) Values('Banana',1)
+<結果表示>
+Select * from SampleTable
+
+Insert into SampleTable Values ('Apple',2)
+
+【複数データの追加】
+insert into SampleTable(Name, quantity)
+Values ('Orange',3)
+,('Lemon',4)
+,('Meron',2)
+
+<結果表示>
+Select * from SampleTable
