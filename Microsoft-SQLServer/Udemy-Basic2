@@ -44,3 +44,9 @@ Select * from SampleTableCopy33
 insert into [dbo].[sampletablecopy33]
 select name,quantity  from [dbo].[SampleTable]]
 
+【データの更新】※sampletableのデータ更新 
+update sampletable set quantity=5
+where name='apple'
+
+Select * from SampleTable
+
