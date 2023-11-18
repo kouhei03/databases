@@ -75,3 +75,12 @@ when not matched then
 select * from [dbo].[MergeSourceTable]
 select * from [dbo].[MergeDestinationtable]
 
+【テーブルの削除】
+delete from [dbo].[MergeSourceTable]
+where name='lemon'
+
+SELECT TOP (1000) * FROM [dbo].[MergeSourceTable]
+
+
+【テーブルの一括削除　truncate】
+truncate table [dbo].[MergeSourceTable]
