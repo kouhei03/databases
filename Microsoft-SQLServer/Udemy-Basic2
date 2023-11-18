@@ -39,3 +39,8 @@ select * into sampletablecopy33
 from (select * from sampletable where 0=1) as t1
 
 Select * from SampleTableCopy33
+
+【テーブルから別のテーブルへの値のinsert】
+insert into [dbo].[sampletablecopy33]
+select name,quantity  from [dbo].[SampleTable]]
+
