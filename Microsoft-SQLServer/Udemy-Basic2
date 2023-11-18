@@ -23,3 +23,19 @@ Values ('Orange',3)
 
 <結果表示>
 Select * from SampleTable
+
+【テーブルのコピー】
+Select * into SampleTableCopy77 from sampletable
+Select * from SampleTableCopy77
+
+【テーブルの一部の条件のみコピー】
+select * into sampletablecopy22 from
+(select * from sampletable where name='Banana') as table1
+
+Select * from SampleTableCopy22
+
+【空のテーブルのコピー】
+select * into sampletablecopy33
+from (select * from sampletable where 0=1) as t1
+
+Select * from SampleTableCopy33
