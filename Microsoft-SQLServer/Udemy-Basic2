@@ -50,3 +50,9 @@ where name='apple'
 
 Select * from SampleTable
 
+【テーブルのマージの準備】
+select * into MergeSourceTable
+from (select * from SampleTable where 0=1) as t 
+
+select * into MergeDestinationtable
+from (select * from Sampletable where 0=1) as t 
