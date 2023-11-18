@@ -56,3 +56,22 @@ from (select * from SampleTable where 0=1) as t
 
 select * into MergeDestinationtable
 from (select * from Sampletable where 0=1) as t 
+
+【テーブルのマージ】
+insert into [dbo].[MergeSourceTable] values('banana',1),('apple',2),('Lemon',3),('orange',4)
+insert into [dbo].[MergeDestinationtable] values('banana',5)
+
+select * from [dbo].[MergeSourceTable]
+select * from [dbo].[MergeDestinationtable]
+
+merge into [dbo].[MergeDestinationtable]
+using [dbo].[MergeSourceTable]
+on [dbo].[MergeDestinationtable].name=[dbo].[MergeSourceTable].quantity
+when matched then
+    update set [dbo].[MergeDestinationtable].quantity=[dbo].[MergeSourceTable].quantity
+when not matched then
+    insert values ([dbo].[MergeSourceTable].name, [dbo].[MergeSourceTable].quantity);
+
+select * from [dbo].[MergeSourceTable]
+select * from [dbo].[MergeDestinationtable]
+
