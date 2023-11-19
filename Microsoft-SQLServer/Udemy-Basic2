@@ -32,6 +32,10 @@ Select * from SampleTableCopy77
 select * into sampletablecopy22 from
 (select * from sampletable where name='Banana') as table1
 
+【ストアプロシージャの作成】
+create procedure sp_fruit
+as select * from [dbo].[SampleTable]
+
 Select * from SampleTableCopy22
 
 【空のテーブルのコピー】
