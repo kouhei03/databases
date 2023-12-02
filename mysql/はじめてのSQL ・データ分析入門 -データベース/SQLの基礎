@@ -1,1 +1,28 @@
 
+
+/* データベースの選択 */ 
+use mydb;
+/* ユーザー一覧の取得 */ 
+select * from users;
+/*ファイル名、フォルダ名を調整*/
+select * from products;
+
+/*コメントサンプル*/
+-- select * from users;
+/* select * from users;
+select * from products */
+
+/*列を指定してデータを取得する select*/
+select id, last_name from users;
+
+/* 列を指定してデータを取得する*/
+select name, price from products;
+select name, price from products;
+select name as 名前, price as 価格 from products;
+select name 名前, price 価格 from products;
+
+/*列に別名をつける*/
+
+select name, price from products;
+select name as 名前, price as 価格 from products;
+select name 名前, price 価格 from products;
