@@ -1,1 +1,6 @@
 
+【dbmasterテーブルの確認】
+show tables from dbmaster;
+【sysテーブルの確認】
+show tables from sys;
+
