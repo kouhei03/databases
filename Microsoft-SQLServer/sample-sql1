@@ -1,0 +1,130 @@
+create table Student
+(
+    id int constraint student_pk primary key,
+    first_name varchar(200),
+    last_name varchar(200)
+);
+
+-- select * from Student;
+
+insert into Student
+values
+    (1, 'Ranga', 'K');
+
+insert into Student
+values
+    (2, 'Sathish', 'M');
+
+insert into Student
+values
+    (3, 'Ramesh', 'S');
+
+insert into Student
+values
+    (4, 'Ranjith', 'S');
+
+insert into Student
+values
+    (5, 'John', 'S');
+
+select *
+from Student;
+
+create table Instructor
+(
+    id int constraint instructor_pk primary key,
+    first_name varchar(200),
+    last_name varchar(200)
+);
+
+insert into Instructor
+values
+    (1, 'in28minutes', 'cloud');
+
+select *
+from Instructor;
+
+create table Course
+(
+    id int constraint course_pk primary key,
+    title varchar(200),
+    instructor_id int constraint course_instructor_id_fk references Instructor (id)
+);
+
+insert into Course
+values
+    (1, 'AZ-900', 1);
+
+insert into Course
+values
+    (2, 'DP-900', 1);
+
+insert into Course
+values
+    (3, 'Google Cloud', 1);
+
+select *
+from Course;
+
+-- select sum(id) from Course;
+
+
+-- insert into Course
+-- values
+--     (4, 'Google Cloud Architect', 2);
+
+select *
+from Course, Instructor
+where Course.instructor_id=Instructor.id
+
+create table Course_Student
+(
+    id int constraint course_student_pk primary key,
+    course_id int constraint course_student_course_id_fk references Course (id),
+    student_id int constraint course_student_student_id_fk references Student (id)
+)
+
+insert into Course_Student
+values(1, 1, 1);
+
+insert into Course_Student
+values(2, 2, 1);
+
+insert into Course_Student
+values(3, 1, 2);
+
+insert into Course_Student
+values(4, 2, 2);
+
+insert into Course_Student
+values(5, 1, 3);
+
+insert into Course_Student
+values(6, 3, 3);
+
+select * from Course_Student
+
+select *
+from Course_Student, Student
+where Course_Student.student_id = Student.id;
+
+select *
+from Course_Student, Student, Course
+where Course_Student.student_id = Student.id and
+    Course_Student.course_id=Course.id;
+
+create view all_courses_with_students
+as
+    select course_id,student_id,first_name,last_name,title
+    from Course_Student, Student, Course
+    where Course_Student.student_id = Student.id and
+        Course_Student.course_id=Course.id;
+
+select * from all_courses_with_students
+
+drop view all_courses_with_students;
+
+drop table Course_Student;
+drop table Course;
+drop table Instructor;
+drop table Student;
